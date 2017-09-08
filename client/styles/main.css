@@ -1,1 +1,7 @@
 #login-buttons { margin: 19px 0; }
+
+li.list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
