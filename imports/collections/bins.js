@@ -9,6 +9,9 @@ Meteor.methods({
       ownerId: this.userId
     });
   },
+  'bins.update': function(bin, content) {
+    return Bins.update(bin._id, { $set: { content } });
+  },
   'bins.remove': function(bin) {
     return Bins.remove(bin);
   }

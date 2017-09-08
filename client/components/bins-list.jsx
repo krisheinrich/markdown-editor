@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Bins } from '../../imports/collections/bins';
 
@@ -9,7 +10,7 @@ class BinsList extends Component {
   _renderListItems() {
     return this.props.bins.map(bin => (
       <li key={bin._id} className="list-group-item">
-        Bin {bin._id}
+        <Link to={`/bins/${bin._id}`}>Bin {bin._id}</Link>
         <button className="btn btn-danger" onClick={() => this._removeBin(bin)}>
           Remove
         </button>

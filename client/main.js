@@ -11,7 +11,8 @@ const routes = (
       <Header />
       <Switch>
         <Route exact path="/" component={BinsList} />
-        <Route path="/bins" component={BinsMain} />
+        <Route exact path="/bins" component={BinsList} />
+        <Route exact path="/bins/:id" component={BinsMain} />
       </Switch>
     </div>
   </Router>
