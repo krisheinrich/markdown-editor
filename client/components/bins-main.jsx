@@ -3,20 +3,23 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Bins } from '../../imports/collections/bins';
 import BinsEditor from './bins-editor';
 import BinsViewer from './bins-viewer';
+import BinsShare from './bins-share';
 import LoadingShade from './loading-shade';
 
-class BinsMain extends Component {
-  render() {
-    return this.props.loading
-      ? <LoadingShade />
-      : <div>
-          <BinsEditor bin={this.props.bin} />
-          <BinsViewer bin={this.props.bin} />
-        </div>;
-  }
-}
+const BinsMain = ({ loading, bin }) => ( loading ?
+  <LoadingShade /> :
+  <div>
+    <BinsEditor bin={bin} />
+    <BinsViewer bin={bin} />
+    <BinsShare bin={bin} />
+  </div>
+);
 
 export default createContainer(props => {
-  let sub = Meteor.subscribe('bins');
-  return { loading: !sub.ready(), bin: Bins.findOne(props.match.params.id) };
+  const subscriptions = [
+    Meteor.subscribe('bins'),
+    Meteor.subscribe('sharedBins'),
+  ];
+  const loading = !subscriptions.every(sub => sub.ready());
+  return { loading, bin: Bins.findOne(props.match.params.id) };
 }, BinsMain);
